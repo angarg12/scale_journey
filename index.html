@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/scale_journey.js"></script>
+<link rel="stylesheet" type="text/css" href="styles/main.css">
+
+<html ng-app="example" ng-controller="IncrementalCtrl">
+	<body>
+		<div>
+			<div>
+				 <h1>Scale Journey</h1>
+				 <h4>An experiment on idle games visualization</h4>
+
+				<div style="overflow: hidden;">
+					<div style="float:left; width:30%;">
+						 <h2>{{player.money | number: 0}}$</h2>
+
+						 <h2>$/s {{moneyPerSecond() | number: 0}}</h2>
+
+						<button id="produce-widget" ng-click="produceMoney()">Produce $</button>
+						 <h3>Buildings:</h3>
+
+						<div ng-repeat="generator in player.tier track by $index">
+							{{player.tierPower[$index]}} $/s
+							<button class="tier" ng-click="buy($index)" ng-class="{'disabled': player.tierCost[$index] > player.money}" ng-mouseover="showCost($index)" ng-mouseleave="hideCost()">Tier {{$index+1}} - {{player.tierCost[$index]}}</button> {{generator}} {{player.tierPower[$index]*generator}} $/s total
+							<br/>
+						</div>
+					</div>
+					<div style="float:right; width:70%;">
+						<canvas id="canvas" width="700" height="400" style="border:1px solid #d3d3d3;center">Your browser does not support the HTML5 canvas tag.</canvas>
+					</div>
+				</div>
+				<div>
+					 <h3>Upgrades: buildings are twice as effective</h3>
+		 <span ng-repeat="(key,upgrades) in player.tierUpgrades">
+					<span ng-repeat="upgrade in upgrades">
+						<button class="upg" 
+								ng-click="buyUpgrade(key,$index)"
+								ng-class="{'disabled': upgrade > player.money && player.tierUpgrades[key][$index] != null,'purchased': player.tierUpgrades[key][$index] == null}"
+								ng-mouseover="showUpgradeCost(key,$index)" 
+								ng-mouseleave="hideUpgradeCost()">
+							Tier {{key+1}} - {{player.tierUpgrades[key][$index]}}
+						</button>
+					</span>
+		</span>
+        </div>
+        <h2>Options</h2>
+        <button id="reset" ng-click="reset(true)">Reset</button>
+    </div>
+	</body>
+</html>

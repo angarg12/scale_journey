@@ -1,0 +1,12 @@
+button.disabled {
+    color: GrayText;
+    background-color: ThreeDFace;
+    border: 2px outset ButtonFace;
+    border-radius: 0.2em;
+}
+button.purchased {
+    color: GrayText;
+    background-color: #2ecc71;
+    border: 2px outset ButtonFace;
+    border-radius: 0.2em;
+}
