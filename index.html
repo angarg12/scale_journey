@@ -34,7 +34,7 @@
 				<div>
 					 <h3>Upgrades: buildings are twice as effective</h3>
 		 <span ng-repeat="(key,upgrades) in player.tierUpgrades">
-					<span ng-repeat="upgrade in upgrades">
+					<span ng-repeat="upgrade in upgrades track by $index">
 						<button class="upg" 
 								ng-click="buyUpgrade(key,$index)"
 								ng-class="{'disabled': upgrade > player.money && player.tierUpgrades[key][$index] != null,'purchased': player.tierUpgrades[key][$index] == null}"
